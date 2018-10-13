@@ -1,0 +1,5 @@
+quantidade inicial entradas = 1289 - arquivo pubscopus
+
+Primeira limpeza: título incluindo palavras-chave: "conference", "proceedings"
+- arquivo pubscopus-v1
+- quantidade de entradas = 1139

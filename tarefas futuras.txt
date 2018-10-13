@@ -1,0 +1,15 @@
+- método que remova as linhas baseadas nas palavras-chave
+- método que não remova as linhas baseadas nas palavras-chave
+- refatorar
+- comentários e java doc
+- wiki do projeto
+- criar uma interface?
+- melhorar métodos - receber lista de colunas e palavras-chave, atualmente trabalha em cima de uma coluna só por vez
+- melhorar métodos - receber nome do arquivo para processamento.
+- modelar UML
+- Desenho do funcionamento (arquitetura?)
+- método de merge de tabelas (integração de dados)
+- método para remoção de duplicados
+- implementar testes?
+- comparar implementação disto em stored procedures?
+- tratamento de exceções
