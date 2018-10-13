@@ -5,7 +5,7 @@
 - wiki do projeto
 - criar uma interface?
 - melhorar métodos - receber lista de colunas e palavras-chave, atualmente trabalha em cima de uma coluna só por vez
-- melhorar métodos - receber nome do arquivo para processamento.
+- melhorar métodos - receber nome do arquivo para processamento (de entrada e saída).
 - modelar UML
 - Desenho do funcionamento (arquitetura?)
 - método de merge de tabelas (integração de dados)
