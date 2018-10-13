@@ -14,16 +14,17 @@ public class Main {
 		DataCleaningRobot robot = new DataCleaningRobot();
 		
 		// tratar espaços em branco
-		String[] keywords = {"conference", "proceedings"};
-		
-		List<Integer> selectedLines = robot.findAndClean("title", keywords);
-		
+		String[] keywords = {"conference", "proceedings", "international forum", "workshop", "Symposium"};
+		List<Integer> selectedLines = robot.findAndClean("title", keywords, "pubscopus-v0.xls");
 		System.out.println("Quantidade de linhas a serem excluídas: " + selectedLines.size());
-//		System.out.println("Linhas selecionadas para serem excluídas: ");
+		robot.writeToACleanSheet(selectedLines, "pubscopus-v0.xls");
+		
+		
+		//		System.out.println("Linhas selecionadas para serem excluídas: ");
 //		for (Integer line: selectedLines) {
 //			System.out.println("-> " + (line + 1));
 //		}		
-		robot.writeToACleanSheet(selectedLines);
+		
 		
 	}
 }
