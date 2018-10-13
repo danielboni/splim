@@ -49,14 +49,16 @@ public class DataCleaningRobot {
 				}
 			}
 			
+			System.out.println("Achei a coluna: " + columnNumber);
+			
 			for (int i = 0; i < numberOfLines; i++) {
 				Cell cell = sheet.getCell(columnNumber, i);
-				String cellContent = cell.getContents();
+				String cellContent = cell.getContents().toLowerCase();
 				
 				boolean flag = false;
 				
 				for (String keyword : keywords) {
-					if(cellContent.contains(keyword)) {
+					if(cellContent.contains(keyword.toLowerCase())) {
 						selectedLines.add(i);
 						flag = true;
 						break;
