@@ -14,14 +14,18 @@ public class Main {
 		DataCleaningRobot robot = new DataCleaningRobot();
 		
 		// tratar espaços em branco
-		String[] keywords = {"conference", "proceedings", "international forum", "workshop", "Symposium"};
-		List<Integer> selectedLines = robot.findAndClean("title", keywords, "pubscopus-v0.xls");
+//		String[] keywords = {"conference", "proceedings", "international forum", "workshop", "Symposium"};
+//		List<Integer> selectedLines = robot.findAndClean("title", keywords, "pubscopus-v0.xls");
 //		System.out.println("Quantidade de linhas a serem excluídas: " + selectedLines.size());
 //		robot.writeToACleanSheet(selectedLines, "pubscopus-v0.xls");
 		
 		// Próximo passo usar o arquivo novo... v1
-		robot.formatAbstracts("pubscopus-v1.xls", "pubscopus-v2.xls");
+		//robot.formatAbstracts("pubscopus-v1.xls", "pubscopus-v2.xls");
 		
+		// Passo 3
+		String[] keywords = {"conference", "proceedings", "international forum", "workshop", "Symposium"};
+		List<Integer> selectedLines = robot.findAndClean("title", keywords, "pubscopus-v2.xls");
+		System.out.println("Quantidade de linhas a serem excluídas: " + selectedLines.size());
 		robot.writeToACleanSheet(selectedLines, "pubscopus-v2.xls", "pubscopus-v3.xls");
 		
 		//		System.out.println("Linhas selecionadas para serem excluídas: ");
