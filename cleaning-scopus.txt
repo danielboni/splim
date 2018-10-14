@@ -1,5 +1,5 @@
 quantidade inicial entradas = 1289 - arquivo pubscopus
 
-Primeira limpeza: título incluindo palavras-chave: "conference", "proceedings"
+Primeira limpeza: removedo entradas com título incluindo palavras-chave: "conference", "proceedings", "international forum", "workshop", "Symposium"
 - arquivo pubscopus-v1
 - quantidade de entradas = 1139

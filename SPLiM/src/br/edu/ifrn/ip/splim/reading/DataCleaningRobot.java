@@ -73,13 +73,13 @@ public class DataCleaningRobot {
 		}	
 	}
 	
-	public void writeToACleanSheet(List<Integer> excludedLines, String fileName) throws IOException, RowsExceededException, WriteException, BiffException {
+	public void writeToACleanSheet(List<Integer> excludedLines, String nomeDoArquivoDeEntrada, String nomeDoArquivoDeSaida) throws IOException, RowsExceededException, WriteException, BiffException {
 		WritableWorkbook cleanedWorkbook;
 
-		Workbook wbook = Workbook.getWorkbook(new File(fileName));
+		Workbook wbook = Workbook.getWorkbook(new File(nomeDoArquivoDeEntrada));
 		Sheet wbookSheet = wbook.getSheet(0);
 		
-		cleanedWorkbook = Workbook.createWorkbook(new File("cleaned-pubscopus.xls"));
+		cleanedWorkbook = Workbook.createWorkbook(new File(nomeDoArquivoDeSaida));
 		WritableSheet sheet = cleanedWorkbook.createSheet("Folha1", 0);
 
 		int numeroDeColunas = wbookSheet.getColumns();
@@ -109,23 +109,23 @@ public class DataCleaningRobot {
 	 * Aparecendo parte por parte em células diferentes. Este método tem por
 	 * funcão formatar esses abstracts em uma só coluna, conforme o esperado.
 	 */
-	public void formatAbstracts(String nomeDoArquivo) throws BiffException, IOException {
+	public void formatAbstracts(String nomeDoArquivoDeEntrada, String novoArquivoDeSaida) throws BiffException, IOException, RowsExceededException, WriteException {
 		// 1 - ler as colunas e identificar a coluna abstract
 		// 2 - a partir dessa coluna montar um stringbuilder com o abstract
 		//     completo separado por vírgula
 		// 3 - reescrever a tabela atualizando o valor da coluna abstract
 		
-		Workbook arquivoDeEntrada = Workbook.getWorkbook(new File(nomeDoArquivo));
+		Workbook arquivoDeEntrada = Workbook.getWorkbook(new File(nomeDoArquivoDeEntrada));
 		Sheet abaNoArquivoDeEntrada = arquivoDeEntrada.getSheet(0);
 		
 		WritableWorkbook arquivoDeSaida;
 
-		arquivoDeSaida = Workbook.createWorkbook(new File("cleaned-pubscopus.xls"));
+		arquivoDeSaida = Workbook.createWorkbook(new File(novoArquivoDeSaida));
 		WritableSheet abaNoArquivoDeSaida = arquivoDeSaida.createSheet("Folha1", 0);
 
 		int numeroDeColunas = abaNoArquivoDeEntrada.getColumns();
 		int numeroDeLinhas = abaNoArquivoDeEntrada.getRows();
-		int colunaDoAbstract;
+		int colunaDoAbstract = 0;
 		
 		// identifying the column with a given columnName
 		for (int i = 0; i < numeroDeColunas; i++) {
@@ -139,6 +139,43 @@ public class DataCleaningRobot {
 		
 		StringBuilder abstractFormatado = new StringBuilder();
 		
-		
+		for (int linha = 0; linha < numeroDeLinhas; linha++) {	
+			if (linha == 0) {
+				for (int coluna = 0; coluna < numeroDeColunas; coluna++) {
+					Cell cell = abaNoArquivoDeEntrada.getCell(coluna, linha);
+					WritableCellFormat cf2 = new WritableCellFormat();
+					Label label = new Label(coluna, linha, cell.getContents(), cf2);
+					abaNoArquivoDeSaida.addCell(label);
+				}
+			} else {
+				for (int coluna = 0; coluna < numeroDeColunas; coluna++) {
+					if(coluna == colunaDoAbstract) {
+						// zerando string builder
+						abstractFormatado.setLength(0);
+						
+						Cell cell = abaNoArquivoDeEntrada.getCell(coluna, linha);
+						abstractFormatado.append(cell.getContents());
+						
+						// laço para concatenar o abstract corretamente.
+						for(int i = coluna+1; i < numeroDeColunas; i++) {
+							cell = abaNoArquivoDeEntrada.getCell(i, linha);
+							abstractFormatado.append("," + cell.getContents());
+						}
+						WritableCellFormat cf2 = new WritableCellFormat();
+						Label label = new Label(coluna, linha, abstractFormatado.toString(), cf2);
+						abaNoArquivoDeSaida.addCell(label);
+						
+					} else if(coluna < colunaDoAbstract) {
+						WritableCellFormat cf2 = new WritableCellFormat();
+						Cell cell = abaNoArquivoDeEntrada.getCell(coluna, linha);
+						Label label = new Label(coluna, linha, cell.getContents(), cf2);
+						abaNoArquivoDeSaida.addCell(label);
+					}
+				}
+			}
+		}
+		arquivoDeSaida.write();
+		arquivoDeSaida.close();
+		System.out.println("Abstracts formatados.");
 	}
 }
