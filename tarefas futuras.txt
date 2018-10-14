@@ -9,7 +9,7 @@
 - modelar UML
 - Desenho do funcionamento (arquitetura?)
 - método de merge de tabelas (integração de dados)
-- método para remoção de duplicados
+- método para remoção de duplicados na mesma tabela
 - implementar testes?
 - comparar implementação disto em stored procedures?
 - tratamento de exceções
